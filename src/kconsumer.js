@@ -6,6 +6,16 @@ class Kconsumer {
         consumer = new HighLevelConsumer(client, options);
     this.consumer = consumer;
 
+    process.on('SIGINT', function() {
+      console.log("exiting...");
+      consumer.close(true, function(){
+        client.close(function(){
+          console.log("exited");
+          process.exit();
+        });
+      });
+    });
+
     consumer.on('message', (message) => {
       console.log(message);
       this.onMessage(message);

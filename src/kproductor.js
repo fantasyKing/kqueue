@@ -9,6 +9,14 @@ class Kproductor {
     this.producer = producer;
     this.client = client;
 
+    process.on('SIGINT', function() {
+      console.log("exiting...");
+      client.close(function(){
+          console.log("exited");
+          process.exit();
+      });
+    });
+
     producer.on('ready', () => {
       console.log("kafka producer ready.");
       if (this.buffer.length > 0) {

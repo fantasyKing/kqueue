@@ -25,6 +25,14 @@ var Kproductor = function () {
     this.producer = producer;
     this.client = client;
 
+    process.on('SIGINT', function () {
+      console.log("exiting...");
+      client.close(function () {
+        console.log("exited");
+        process.exit();
+      });
+    });
+
     producer.on('ready', function () {
       console.log("kafka producer ready.");
       if (_this.buffer.length > 0) {

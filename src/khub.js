@@ -45,6 +45,7 @@ class Khub {
         Producer = kafka.HighLevelProducer,
         producer = new Producer(client);
 
+
     producer.on("ready",() => {
       // 自动创建 Topics
       producer.createTopics(topics_enable, false, function (err, data) {
@@ -52,10 +53,20 @@ class Khub {
       });
 
 
-      var consumer = new HighLevelConsumer(client, topic_config)
+      var consumer = new HighLevelConsumer(client, topic_config);
       this.consumer = consumer;
 
-      console.log("now listening topic:" + JSON.stringify(topics_enable))
+      console.log("now listening topic:" + JSON.stringify(topics_enable));
+
+      process.on('SIGINT', function() {
+        console.log("exiting...");
+        consumer.close(true, function(){
+          client.close(function(){
+            console.log("exited");
+            process.exit();
+          });
+        });
+      });
 
       consumer.on('message', (message) => {
         var topic_arr = message["topic"].split(".");

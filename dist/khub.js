@@ -71,6 +71,16 @@ var Khub = function Khub(zookeeper_addr, jobs) {
 
     console.log("now listening topic:" + JSON.stringify(topics_enable));
 
+    process.on('SIGINT', function () {
+      console.log("exiting...");
+      consumer.close(true, function () {
+        client.close(function () {
+          console.log("exited");
+          process.exit();
+        });
+      });
+    });
+
     consumer.on('message', function (message) {
       var topic_arr = message["topic"].split(".");
 

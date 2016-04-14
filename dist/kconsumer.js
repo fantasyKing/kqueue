@@ -22,6 +22,16 @@ var Kconsumer = function () {
         consumer = new HighLevelConsumer(client, options);
     this.consumer = consumer;
 
+    process.on('SIGINT', function () {
+      console.log("exiting...");
+      consumer.close(true, function () {
+        client.close(function () {
+          console.log("exited");
+          process.exit();
+        });
+      });
+    });
+
     consumer.on('message', function (message) {
       console.log(message);
       _this.onMessage(message);
