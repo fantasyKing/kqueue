@@ -1,15 +1,15 @@
-import Kproductor from '../dist/kproductor';
+import Kproducer from '../dist/kproducer';
 import config from './config';
 
 
-var productor = new Kproductor(config.zookeeper_addr);
+var producer = new Kproducer(config.zookeeper_addr);
 
-productor.send('test2','helloworld2');
+producer.send('test2','helloworld2');
 
 setTimeout(function(){
-    productor.send('test2','helloworld3');
-    productor.send('test2','helloworld4');
+    producer.send('test2','helloworld3');
+    producer.send('test2','helloworld4');
 }, 2000);
 
-productor.kpub('Ti1','foo','well done');
-productor.kpub('Ti2','bar',{"somekey":"hello world"});
+producer.kpub('Ti1','foo','well done');
+producer.kpub('Ti2','bar',{"somekey":"hello world"});

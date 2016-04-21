@@ -8,13 +8,13 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Kproductor = function () {
-  function Kproductor(zookeeper_addr) {
+var Kproducer = function () {
+  function Kproducer(zookeeper_addr) {
     var _this = this;
 
     var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
-    _classCallCheck(this, Kproductor);
+    _classCallCheck(this, Kproducer);
 
     var kafka = require('kafka-node'),
         HighLevelProducer = kafka.HighLevelProducer,
@@ -44,7 +44,7 @@ var Kproductor = function () {
     });
   }
 
-  _createClass(Kproductor, [{
+  _createClass(Kproducer, [{
     key: 'send',
     value: function send(topic, messages) {
       if (this.producer.ready) {
@@ -67,7 +67,7 @@ var Kproductor = function () {
     }
   }]);
 
-  return Kproductor;
+  return Kproducer;
 }();
 
-exports.default = Kproductor;
+exports.default = Kproducer;

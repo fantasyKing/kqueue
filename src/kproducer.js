@@ -1,4 +1,4 @@
-class Kproductor {
+class Kproducer {
   constructor(zookeeper_addr, options={}) {
     var kafka = require('kafka-node'),
         HighLevelProducer = kafka.HighLevelProducer,
@@ -49,4 +49,4 @@ class Kproductor {
 
 }
 
-export default Kproductor;
+export default Kproducer;

@@ -1,10 +1,10 @@
 # Kqueue
  Easy queue on kafka with node.js
 ## How to use
-### productor
-    import Kproductor from '../dist/kproductor';
-    var productor = new Kproductor(config.zookeeper_addr);
-    productor.send('you_topic','helloworld2');
+### producer
+    import Kproducer from '../dist/kproducer';
+    var producer = new Kproducer(config.zookeeper_addr);
+    producer.send('you_topic','helloworld2');
 ## consumer
     import Kconsumer from '../dist/kconsumer';
     import config from './config';
@@ -13,10 +13,10 @@
       console.log(message);
     } 
 ## use worker hub
-### productor
-    import Kproductor from '../dist/kproductor';
-    var productor = new Kproductor(config.zookeeper_addr);
-    productor.kpub('Ti1','foo','well done');
+### producer
+    import Kproducer from '../dist/kproducer';
+    var producer = new Kproducer(config.zookeeper_addr);
+    producer.kpub('Ti1','foo','well done');
 ## consumer
     import Khub from '../dist/khub';
     import config from './config';
