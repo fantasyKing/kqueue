@@ -8,6 +8,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var _ = require('lodash');
+
 var Kproducer = function () {
   function Kproducer(zookeeper_addr) {
     var _this = this;
@@ -52,7 +54,13 @@ var Kproducer = function () {
           console.log(data);
         });
       } else {
-        this.buffer.push({ "topic": topic, "messages": messages, attributes: 2 });
+        var exist_topic = _.find(this.buffer, { "topic": topic });
+        if (exist_topic) {
+          exist_topic.messages = _.concat(exist_topic.messages, messages);
+        } else {
+          this.buffer.push({ "topic": topic, "messages": messages, attributes: 2 });
+        }
+
         // attributes controls compression of the message set. It supports the following values:
 
         // 0: No compression

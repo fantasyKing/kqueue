@@ -1,4 +1,4 @@
-import Kconsumer from '../dist/kconsumer';
+import {Kconsumer} from '../dist';
 import config from './config';
 
 

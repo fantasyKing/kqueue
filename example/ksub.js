@@ -1,4 +1,4 @@
-import Khub from '../dist/khub';
+import {Khub} from '../dist';
 import config from './config';
 
 
@@ -20,5 +20,5 @@ class Ti2{
   }
 }
 
-let khub = new Khub(config.zookeeper_addr,{Ti1,Ti2},{only: "Ti2.bar"});
-//let khub = new Khub(config.zookeeper_addr,{Ti1,Ti2});
+//let khub = new Khub(config.zookeeper_addr,{Ti1,Ti2},{only: "Ti2.bar"});
+let khub = new Khub(config.zookeeper_addr,{Ti1,Ti2});
