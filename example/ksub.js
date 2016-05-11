@@ -9,6 +9,9 @@ class Ti1{
   bar(msg){
     console.log("Ti1.bar happend"+msg);
   }
+  time(msg){
+     console.log(Date.now() - parseInt(msg));
+  }
 }
 
 class Ti2{

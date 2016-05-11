@@ -30,12 +30,30 @@ class Kproducer {
 
 
     });
+
+    producer.on('error', (e) => {
+      console.log("kafka producer error:");
+      console.log(e);
+    })
+
   }
 
   send(topic, messages) {
     if (this.producer.ready) {
-      this.producer.send([{"topic": topic, "messages": messages, attributes:2}],function (err, data) {
+      this.producer.send([{"topic": topic, "messages": messages, attributes:2}], (err, data) => {
+        if (err) {
+          console.log(err);
+          console.log(topic + ' Connect error,request push to memory buffer and wait for reconnect.');
+
+          let exist_topic = _.find(this.buffer, {"topic": topic});
+          if ( exist_topic ) {
+            exist_topic.messages =  _.concat(exist_topic.messages, messages);
+          } else {
+            this.buffer.push({"topic": topic, "messages": messages, attributes:2});
+          }
+        } else {
           console.log(data);
+        }
       });
     } else {
       let exist_topic = _.find(this.buffer, {"topic": topic});

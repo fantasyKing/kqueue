@@ -14,3 +14,7 @@ setTimeout(function(){
 producer.kpub('Ti1','foo','well done');
 producer.kpub('Ti1','foo','well done2');
 producer.kpub('Ti2','bar',{"somekey":"hello world"});
+
+setInterval(() => {
+  producer.kpub('Ti1','time',Date.now());
+}, 5000);
