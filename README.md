@@ -39,7 +39,7 @@
     var khub = new Khub(config.zookeeper_addr,{Ti1,Ti2},{only: "Ti2.bar"});
 
 
-For more example, see the example folder.
+For more example, check out the example folder.
 ## run example
     npm start
     cd out
