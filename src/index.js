@@ -1,6 +1,6 @@
-import Kconsumer from './Kconsumer';
-import Khub from './Khub';
-import Kproducer from './Kproducer';
+import Kconsumer from './kconsumer';
+import Khub from './khub';
+import Kproducer from './kproducer';
 
 export {
   Kconsumer,
