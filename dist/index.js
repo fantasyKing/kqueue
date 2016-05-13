@@ -5,20 +5,20 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Kproducer = exports.Khub = exports.Kconsumer = undefined;
 
-var _Kconsumer = require('./Kconsumer');
+var _kconsumer = require('./kconsumer');
 
-var _Kconsumer2 = _interopRequireDefault(_Kconsumer);
+var _kconsumer2 = _interopRequireDefault(_kconsumer);
 
-var _Khub = require('./Khub');
+var _khub = require('./khub');
 
-var _Khub2 = _interopRequireDefault(_Khub);
+var _khub2 = _interopRequireDefault(_khub);
 
-var _Kproducer = require('./Kproducer');
+var _kproducer = require('./kproducer');
 
-var _Kproducer2 = _interopRequireDefault(_Kproducer);
+var _kproducer2 = _interopRequireDefault(_kproducer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.Kconsumer = _Kconsumer2.default;
-exports.Khub = _Khub2.default;
-exports.Kproducer = _Kproducer2.default;
+exports.Kconsumer = _kconsumer2.default;
+exports.Khub = _khub2.default;
+exports.Kproducer = _kproducer2.default;
