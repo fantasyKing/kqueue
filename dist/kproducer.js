@@ -18,25 +18,25 @@ var Kproducer = function () {
 
     _classCallCheck(this, Kproducer);
 
-    var kafka = require('kafka-node'),
-        HighLevelProducer = kafka.HighLevelProducer,
-        client = new kafka.Client(zookeeper_addr),
-        producer = new HighLevelProducer(client, options);
+    var kafka = require('kafka-node2');
+    var HighLevelProducer = kafka.HighLevelProducer;
+    var client = new kafka.Client(zookeeper_addr);
+    var producer = new HighLevelProducer(client, options);
 
     this.buffer = []; // use buffer to avoid kafka not ready case
     this.producer = producer;
     this.client = client;
 
     process.on('SIGINT', function () {
-      console.log("exiting...");
+      console.log('exiting...');
       client.close(function () {
-        console.log("exited");
+        console.log('exited');
         process.exit();
       });
     });
 
     producer.on('ready', function () {
-      console.log("kafka producer ready.");
+      console.log('kafka producer ready.');
       if (_this.buffer.length > 0) {
         _this.producer.send(_this.buffer, function (err, data) {
           console.log(data);
@@ -46,7 +46,7 @@ var Kproducer = function () {
     });
 
     producer.on('error', function (e) {
-      console.log("kafka producer error:");
+      console.log('kafka producer error:');
       console.log(e);
     });
   }
@@ -57,29 +57,28 @@ var Kproducer = function () {
       var _this2 = this;
 
       if (this.producer.ready) {
-        this.producer.send([{ "topic": topic, "messages": messages, attributes: 2 }], function (err, data) {
+        this.producer.send([{ topic: topic, messages: messages, attributes: 2 }], function (err, data) {
           if (err) {
             console.log(err);
             console.log(topic + ' Connect error,request push to memory buffer and wait for reconnect.');
 
-            var exist_topic = _.find(_this2.buffer, { "topic": topic });
+            var exist_topic = _.find(_this2.buffer, { topic: topic });
             if (exist_topic) {
               exist_topic.messages = _.concat(exist_topic.messages, messages);
             } else {
-              _this2.buffer.push({ "topic": topic, "messages": messages, attributes: 2 });
+              _this2.buffer.push({ topic: topic, messages: messages, attributes: 2 });
             }
           } else {
             console.log(data);
           }
         });
       } else {
-        var exist_topic = _.find(this.buffer, { "topic": topic });
+        var exist_topic = _.find(this.buffer, { topic: topic });
         if (exist_topic) {
           exist_topic.messages = _.concat(exist_topic.messages, messages);
         } else {
-          this.buffer.push({ "topic": topic, "messages": messages, attributes: 2 });
+          this.buffer.push({ topic: topic, messages: messages, attributes: 2 });
         }
-
         // attributes controls compression of the message set. It supports the following values:
 
         // 0: No compression

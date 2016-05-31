@@ -1,9 +1,9 @@
-import {Kconsumer} from '../dist';
+import { Kconsumer } from '../dist';
 import config from './config';
 
 
-var consumer = new Kconsumer(config.zookeeper_addr, [{topic: 'test2'}]);
+const consumer = new Kconsumer(config.zookeeper_addr, [{ topic: 'test2' }]);
 
-consumer.onMessage = function(message) {
+consumer.onMessage = (message) => {
   console.log(message);
-}
+};

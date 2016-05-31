@@ -6,4 +6,4 @@ export {
   Kconsumer,
   Khub,
   Kproducer
-}
+};

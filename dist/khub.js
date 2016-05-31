@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -17,7 +17,7 @@ var Khub = function Khub(zookeeper_addr, jobs) {
   function getAllMethods(object) {
     var obj = Object.getPrototypeOf(object);
     return Object.getOwnPropertyNames(obj).filter(function (property) {
-      return typeof object[property] == 'function' && property != "constructor";
+      return typeof object[property] === 'function' && property !== 'constructor';
     });
   }
 
@@ -29,38 +29,38 @@ var Khub = function Khub(zookeeper_addr, jobs) {
 
   // 构造 对象名-对象可用方法数组 对象
   var avliable_obj_arr = {};
-  for (var key in objs) {
-    avliable_obj_arr[key] = getAllMethods(objs[key]);
+  for (var _key in objs) {
+    avliable_obj_arr[_key] = getAllMethods(objs[_key]);
   }
 
   // 生成可用监听Topic 列表
   var topics_avliable = [];
-  for (var key in avliable_obj_arr) {
-    for (var subkey in avliable_obj_arr[key]) {
-      topics_avliable.push(key + "." + avliable_obj_arr[key][subkey]);
+  for (var _key2 in avliable_obj_arr) {
+    for (var subkey in avliable_obj_arr[_key2]) {
+      topics_avliable.push(_key2 + '.' + avliable_obj_arr[_key2][subkey]);
     }
   }
 
   var topics_enable = topics_avliable;
   // 存在 only 配置时的情况
-  if (options["only"]) {
+  if (options['only']) {
     topics_enable = topics_enable.filter(function (v) {
-      return options["only"].indexOf(v) > -1;
+      return options['only'].indexOf(v) > -1;
     });
   }
 
   var topic_config = [];
-  for (var key in topics_enable) {
-    topic_config.push({ topic: topics_enable[key] });
+  for (var _key3 in topics_enable) {
+    topic_config.push({ topic: topics_enable[_key3] });
   }
 
-  var kafka = require('kafka-node'),
-      HighLevelConsumer = kafka.HighLevelConsumer,
-      client = new kafka.Client(zookeeper_addr),
-      Producer = kafka.HighLevelProducer,
-      producer = new Producer(client);
+  var kafka = require('kafka-node2');
+  var HighLevelConsumer = kafka.HighLevelConsumer;
+  var client = new kafka.Client(zookeeper_addr);
+  var Producer = kafka.HighLevelProducer;
+  var producer = new Producer(client);
 
-  producer.on("ready", function () {
+  producer.on('ready', function () {
     // 自动创建 Topics
     producer.createTopics(topics_enable, false, function (err, data) {
       console.log(err || data);
@@ -69,37 +69,37 @@ var Khub = function Khub(zookeeper_addr, jobs) {
     var consumer = new HighLevelConsumer(client, topic_config);
     _this.consumer = consumer;
 
-    console.log("now listening topic:" + JSON.stringify(topics_enable));
+    console.log('now listening topic: ' + JSON.stringify(topics_enable));
 
     process.on('SIGINT', function () {
-      console.log("exiting...");
+      console.log('exiting...');
       consumer.close(true, function () {
         client.close(function () {
-          console.log("exited");
+          console.log('exited');
           process.exit();
         });
       });
     });
 
     consumer.on('message', function (message) {
-      var topic_arr = message["topic"].split(".");
+      var topic_arr = message['topic'].split('.');
 
       if (!topic_arr[0] || !topic_arr[1]) {
-        console.log("not valid topic name");
+        console.log('not valid topic name');
         return;
       }
 
-      if (typeof objs[topic_arr[0]][topic_arr[1]] != 'function') {
-        console.log("not valid topic name");
+      if (typeof objs[topic_arr[0]][topic_arr[1]] !== 'function') {
+        console.log('not valid topic name');
         return;
       }
 
       // 调用具体方法
       var args = null;
       try {
-        args = JSON.parse(message["value"]);
+        args = JSON.parse(message['value']);
       } catch (e) {
-        console.log("not valid message");
+        console.log('not valid message');
         return;
       }
       objs[topic_arr[0]][topic_arr[1]](args);

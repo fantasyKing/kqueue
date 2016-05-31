@@ -16,17 +16,17 @@ var Kconsumer = function () {
 
     _classCallCheck(this, Kconsumer);
 
-    var kafka = require('kafka-node'),
-        HighLevelConsumer = kafka.HighLevelConsumer,
-        client = new kafka.Client(zookeeper_addr),
-        consumer = new HighLevelConsumer(client, options);
+    var kafka = require('kafka-node2');
+    var HighLevelConsumer = kafka.HighLevelConsumer;
+    var client = new kafka.Client(zookeeper_addr);
+    var consumer = new HighLevelConsumer(client, options);
     this.consumer = consumer;
 
     process.on('SIGINT', function () {
-      console.log("exiting...");
+      console.log('exiting...');
       consumer.close(true, function () {
         client.close(function () {
-          console.log("exited");
+          console.log('exited');
           process.exit();
         });
       });
@@ -41,7 +41,7 @@ var Kconsumer = function () {
   _createClass(Kconsumer, [{
     key: 'onMessage',
     value: function onMessage(message) {
-      console.log('an message comes' + message);
+      console.log('an message comes ' + message);
     }
   }]);
 
