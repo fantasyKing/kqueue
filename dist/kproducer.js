@@ -14,11 +14,11 @@ var Kproducer = function () {
   function Kproducer(zookeeper_addr) {
     var _this = this;
 
-    var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
     _classCallCheck(this, Kproducer);
 
-    var kafka = require('kafka-node2');
+    var kafka = require('kafka-node');
     var HighLevelProducer = kafka.HighLevelProducer;
     var client = new kafka.Client(zookeeper_addr);
     var producer = new HighLevelProducer(client, options);

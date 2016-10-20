@@ -1,6 +1,6 @@
 class Kconsumer {
   constructor(zookeeper_addr, options = {}) {
-    const kafka = require('kafka-node2');
+    const kafka = require('kafka-node');
     const HighLevelConsumer = kafka.HighLevelConsumer;
     const client = new kafka.Client(zookeeper_addr);
     const consumer = new HighLevelConsumer(client, options);

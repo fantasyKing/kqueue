@@ -12,11 +12,11 @@ var Kconsumer = function () {
   function Kconsumer(zookeeper_addr) {
     var _this = this;
 
-    var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
     _classCallCheck(this, Kconsumer);
 
-    var kafka = require('kafka-node2');
+    var kafka = require('kafka-node');
     var HighLevelConsumer = kafka.HighLevelConsumer;
     var client = new kafka.Client(zookeeper_addr);
     var consumer = new HighLevelConsumer(client, options);

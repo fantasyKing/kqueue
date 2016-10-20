@@ -2,7 +2,7 @@ const _ = require('lodash');
 
 class Kproducer {
   constructor(zookeeper_addr, options = {}) {
-    const kafka = require('kafka-node2');
+    const kafka = require('kafka-node');
     const HighLevelProducer = kafka.HighLevelProducer;
     const client = new kafka.Client(zookeeper_addr);
     const producer = new HighLevelProducer(client, options);
