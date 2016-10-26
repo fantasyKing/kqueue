@@ -54,7 +54,7 @@ var Khub = function Khub(zookeeper_addr, jobs) {
     topic_config.push({ topic: topics_enable[_key3] });
   }
 
-  var kafka = require('kafka-node2');
+  var kafka = require('kafka-node');
   var HighLevelConsumer = kafka.HighLevelConsumer;
   var client = new kafka.Client(zookeeper_addr);
   var Producer = kafka.HighLevelProducer;

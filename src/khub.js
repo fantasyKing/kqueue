@@ -39,7 +39,7 @@ class Khub {
       topic_config.push({ topic: topics_enable[key] });
     }
 
-    const kafka = require('kafka-node2');
+    const kafka = require('kafka-node');
     const HighLevelConsumer = kafka.HighLevelConsumer;
     const client = new kafka.Client(zookeeper_addr);
     const Producer = kafka.HighLevelProducer;
