@@ -80,12 +80,21 @@ var KconsumerGroup = function KconsumerGroup(zookeeper_addr, jobs) {
 
   var consumerGroup = new ConsumerGroup(opt, topic_config);
 
+  process.on('SIGINT', function () {
+    console.log('exiting...');
+    consumerGroup.close(true, function () {
+      console.log('exited');
+      process.exit();
+    });
+  });
+
   consumerGroup.on('error', function (error) {
     console.error(error);
     console.error(error.stack);
   });
 
   consumerGroup.on('message', function (message) {
+    console.log('read msg Topic="%s" Partition=%s Offset=%d', message.topic, message.partition, message.offset);
     var topic_arr = message['topic'].split('.');
 
     if (!topic_arr[0] || !topic_arr[1]) {

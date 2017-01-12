@@ -6,7 +6,7 @@ var producer = new HighLevelProducer(client, {
   ackTimeoutMs: 100,
   partitionerType: 2
 });
-var topic = 'Q10000Sub.RebalanceTopic';
+var topic = 'P10000Sub.inviteNotification';
 var count = 10;
 var rets = 0;
 var producer = new HighLevelProducer(client);
