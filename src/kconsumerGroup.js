@@ -60,12 +60,21 @@ class KconsumerGroup {
 
     var consumerGroup = new ConsumerGroup(opt, topic_config);
 
+    process.on('SIGINT', () => {
+      console.log('exiting...');
+      consumerGroup.close(true, () => {
+        console.log('exited');
+        process.exit();
+      });
+    });
+
     consumerGroup.on('error', error => {
       console.error(error);
       console.error(error.stack);
     });
 
     consumerGroup.on('message', message => {
+      console.log('read msg Topic="%s" Partition=%s Offset=%d', message.topic, message.partition, message.offset);
       const topic_arr = message['topic'].split('.');
 
       if (!topic_arr[0] || !topic_arr[1]) {
