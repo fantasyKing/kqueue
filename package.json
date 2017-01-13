@@ -6,7 +6,10 @@
   "scripts": {
     "start": "make example && node ./out/index.js",
     "lint": "eslint src",
-    "test": "echo \\\"Error: no test specified\\\" && exit 1"
+    "test": "echo \\\"Error: no test specified\\\" && exit 1",
+    "group": "./node_modules/.bin/babel-node example/kconsumerGroup.js",
+    "group1": "./node_modules/.bin/babel-node example/kconsumerGroup1.js",
+    "prodStart": "./node_modules/.bin/babel-node example/producer.js"
   },
   "author": "panlilu@gmail.com",
   "license": "ISC",
