@@ -85,15 +85,11 @@ var KproducerLoad = function () {
       if (this.producer.ready) {
         this.producer.send([{ topic: topic, messages: messages, attributes: 2 }], function (err, data) {
           if (err) {
-            console.log(err);
             console.log(topic + ' Connect error,request push to memory buffer and wait for reconnect.');
 
-            var exist_topic = _.find(_this2.buffer, { topic: topic });
-            if (exist_topic) {
-              exist_topic.messages = _.concat(exist_topic.messages, messages);
-            } else {
-              _this2.buffer.push({ topic: topic, messages: messages, attributes: 2 });
-            }
+            var topicMessage = [];
+            topicMessage.push({ topic: topic, messages: messages, attributes: 2 });
+            _this2.buffer.push(topicMessage);
           } else {
             console.log(data);
           }
