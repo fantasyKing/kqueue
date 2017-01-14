@@ -4,7 +4,7 @@ import kafka from 'kafka-node';
 const ConsumerGroup = kafka.ConsumerGroup;
 
 const consumerOptions = {
-  groupId: 'push-online-group',
+  groupId: 'kafka-node-group',
   id: 'consumer',
   sessionTimeout: 15000,
   protocol: ['roundrobin'],

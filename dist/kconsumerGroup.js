@@ -13,7 +13,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var ConsumerGroup = _kafkaNode2.default.ConsumerGroup;
 
 var consumerOptions = {
-  groupId: 'push-online-group',
+  groupId: 'kafka-node-group',
   id: 'consumer',
   sessionTimeout: 15000,
   protocol: ['roundrobin'],
