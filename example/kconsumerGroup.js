@@ -1,14 +1,14 @@
-import { KconsumerGroup } from '../src';
+import { KconsumerGroup } from '../dist';
 import config from './config';
 
 
-class P10000Sub {
-  inviteNotification(msg) {
-    console.log(`P10000Sub.inviteNotification happend ${JSON.stringify(msg)}`);
+class Q10000Sub {
+  RebalanceTopic(msg) {
+    console.log(`Q10000Sub.RebalanceTopic happend ${JSON.stringify(msg)}`);
   }
 }
 
-console.log(P10000Sub);
+console.log(Q10000Sub);
 // let khub = new Khub(config.zookeeper_addr,{Ti1,Ti2},{only: "Ti2.bar"});
-const khub = new KconsumerGroup(config.zookeeper_addr, { P10000Sub }, {id: "consumer1"});
+const khub = new KconsumerGroup(config.zookeeper_addr, { Q10000Sub }, {id: "consumer"});
 console.log(khub);

@@ -9,7 +9,7 @@ var consumerOptions = {
   fromOffset: 'earliest' // equivalent of auto.offset.reset valid values are 'none', 'latest', 'earliest'
 };
 
-var topics = ['Q10000Sub.RebalanceTopic', 'Q10000Sub.RebalanceTest'];
+var topics = ['PingSub.joinUser'];
 
 var consumerGroup2 = new ConsumerGroup(Object.assign({id: 'c2'}, consumerOptions), topics);
 consumerGroup2.on('error', onError);

@@ -1,60 +1,39 @@
-import { KproducerLoad } from '../src';
+import { KproducerLoad } from '../dist';
 import config from './config';
 
 const pro = new KproducerLoad(config.zookeeper_addr);
 
-pro.kpub('P10000Sub', 'inviteNotification', {
-  room: "5751249b20316a7222269a26",
-  data: {
-    action: 2,
-    type: 1
-  }
+pro.kpub('Q10000Sub', 'RebalanceTopic', {
+  room: ["585b48200fd48b0001b1c694","57ec8afb7dcfa50001756757"],
+  data: "585b48210dd4110001156e79"
 });
 
-pro.kpub('P10000Sub', 'inviteNotification', {
-  room: "5751249b20316a7222269a26",
-  data: {
-    action: 2,
-    type: 2
-  }
+pro.kpub('Q10000Sub', 'RebalanceTopic', {
+  room: ["585b48200fd48b0001b1c694","57ec8afb7dcfa50001756757"],
+  data: "585b48210dd4110001156e79"
 });
 
-pro.kpub('P10000Sub', 'inviteNotification', {
-  room: "5751249b20316a7222269a26",
-  data: {
-    action: 2,
-    type: 2
-  }
+pro.kpub('Q10000Sub', 'RebalanceTopic', {
+  room: ["585b48200fd48b0001b1c694","57ec8afb7dcfa50001756757"],
+  data: "585b48210dd4110001156e79"
 });
 
-pro.kpub('P10000Sub', 'inviteNotification', {
-  room: "5751249b20316a7222269a26",
-  data: {
-    action: 2,
-    type: 2
-  }
+pro.kpub('Q10000Sub', 'RebalanceTopic', {
+  room: ["585b48200fd48b0001b1c694","57ec8afb7dcfa50001756757"],
+  data: "585b48210dd4110001156e79"
 });
 
-pro.kpub('P10000Sub', 'inviteNotification', {
-  room: "5751249b20316a7222269a26",
-  data: {
-    action: 2,
-    type: 2
-  }
+pro.kpub('Q10000Sub', 'RebalanceTopic', {
+  room: ["585b48200fd48b0001b1c694","57ec8afb7dcfa50001756757"],
+  data: "585b48210dd4110001156e79"
 });
 
-pro.kpub('P10000Sub', 'inviteNotification', {
-  room: "5751249b20316a7222269a26",
-  data: {
-    action: 2,
-    type: 2
-  }
+pro.kpub('Q10000Sub', 'RebalanceTopic', {
+  room: ["585b48200fd48b0001b1c694","57ec8afb7dcfa50001756757"],
+  data: "585b48210dd4110001156e79"
 });
 
-pro.kpub('P10000Sub', 'inviteNotification', {
-  room: "5751249b20316a7222269a26",
-  data: {
-    action: 2,
-    type: 2
-  }
+pro.kpub('Q10000Sub', 'RebalanceTopic', {
+  room: ["585b48200fd48b0001b1c694","57ec8afb7dcfa50001756757"],
+  data: "585b48210dd4110001156e79"
 });
