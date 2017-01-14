@@ -1,9 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
 var _async = require('async');
 
 var _async2 = _interopRequireDefault(_async);
@@ -14,22 +10,18 @@ var _kafkaNode2 = _interopRequireDefault(_kafkaNode);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 var ConsumerGroup = _kafkaNode2.default.ConsumerGroup;
 
 var consumerOptions = {
-  groupId: 'kafka-node-group',
+  groupId: 'push-online-group',
   id: 'consumer',
   sessionTimeout: 15000,
   protocol: ['roundrobin'],
   fromOffset: 'earliest' // equivalent of auto.offset.reset valid values are 'none', 'latest', 'earliest'
 };
 
-var KconsumerGroup = function KconsumerGroup(zookeeper_addr, jobs) {
+function KconsumerGroup(zookeeper_addr, jobs) {
   var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-
-  _classCallCheck(this, KconsumerGroup);
 
   this.host = zookeeper_addr;
   var opt = Object.assign(consumerOptions, options);
@@ -79,22 +71,13 @@ var KconsumerGroup = function KconsumerGroup(zookeeper_addr, jobs) {
   console.log(topic_config);
 
   var consumerGroup = new ConsumerGroup(opt, topic_config);
-
-  process.on('SIGINT', function () {
-    console.log('exiting...');
-    consumerGroup.close(true, function () {
-      console.log('exited');
-      process.exit();
-    });
-  });
-
   consumerGroup.on('error', function (error) {
     console.error(error);
     console.error(error.stack);
   });
 
   consumerGroup.on('message', function (message) {
-    console.log('read msg Topic="%s" Partition=%s Offset=%d', message.topic, message.partition, message.offset);
+    console.log('%s read msg Topic="%s" Partition=%s Offset=%d', this.client.clientId, message.topic, message.partition, message.offset);
     var topic_arr = message['topic'].split('.');
 
     if (!topic_arr[0] || !topic_arr[1]) {
@@ -117,6 +100,12 @@ var KconsumerGroup = function KconsumerGroup(zookeeper_addr, jobs) {
     }
     objs[topic_arr[0]][topic_arr[1]](args);
   });
-};
 
-exports.default = KconsumerGroup;
+  process.once('SIGINT', function () {
+    _async2.default.each([consumerGroup], function (consumer, callback) {
+      consumer.close(true, callback);
+    });
+  });
+}
+
+module.exports = KconsumerGroup;
