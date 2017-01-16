@@ -65,7 +65,7 @@ function KconsumerGroup(zookeeper_addr, jobs, options = {}) {
 
 
   consumerGroup.on('message', function (message) {
-    console.log('%s read msg Topic="%s" Partition=%s Offset=%d', this.client.clientId, message.topic, message.partition, message.offset);
+    console.log(`consumerId=${this.client.clientId} Topic=${message.topic} Partition=${message.partition} Offset=${message.offset}`);
     const topic_arr = message['topic'].split('.');
 
     if (!topic_arr[0] || !topic_arr[1]) {
