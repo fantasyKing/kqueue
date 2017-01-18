@@ -83,12 +83,12 @@ var KproducerLoad = function () {
       var _this2 = this;
 
       if (this.producer.ready) {
-        this.producer.send([{ topic: topic, messages: messages, attributes: 2 }], function (err, data) {
+        this.producer.send([{ topic: topic, messages: messages, attributes: 0 }], function (err, data) {
           if (err) {
             console.log('topic:' + topic + ' messages:' + messages + ' Connect error,request push to memory buffer and wait for reconnect.');
 
             var topicMessage = [];
-            topicMessage.push({ topic: topic, messages: messages, attributes: 2 });
+            topicMessage.push({ topic: topic, messages: messages, attributes: 0 });
             _this2.buffer.push(topicMessage);
           } else {
             console.log(data);
@@ -96,7 +96,7 @@ var KproducerLoad = function () {
         });
       } else {
         var topicMessage = [];
-        topicMessage.push({ topic: topic, messages: messages, attributes: 2 });
+        topicMessage.push({ topic: topic, messages: messages, attributes: 0 });
         this.buffer.push(topicMessage);
         // attributes controls compression of the message set. It supports the following values:
 
