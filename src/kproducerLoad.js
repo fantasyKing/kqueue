@@ -64,12 +64,12 @@ class KproducerLoad {
 
   send(topic, messages) {
     if (this.producer.ready) {
-      this.producer.send([{ topic, messages, attributes: 0 }], (err, data) => {
+      this.producer.send([{ topic, messages, attributes: 1 }], (err, data) => {
         if (err) {
           console.log(`topic:${topic} messages:${messages} Connect error,request push to memory buffer and wait for reconnect.`);
 
           const topicMessage = [];
-          topicMessage.push({ topic, messages, attributes: 0 });
+          topicMessage.push({ topic, messages, attributes: 1 });
           this.buffer.push(topicMessage);
         } else {
           console.log(data);
@@ -77,7 +77,7 @@ class KproducerLoad {
       });
     } else {
       const topicMessage = [];
-      topicMessage.push({ topic, messages, attributes: 0 });
+      topicMessage.push({ topic, messages, attributes: 1 });
       this.buffer.push(topicMessage);
       // attributes controls compression of the message set. It supports the following values:
 
