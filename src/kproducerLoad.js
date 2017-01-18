@@ -63,31 +63,28 @@ class KproducerLoad {
   }
 
   send(topic, messages) {
-    //if (this.producer.ready) {
-    //  this.producer.send([{ topic, messages, attributes: 2 }], (err, data) => {
-    //    if (err) {
-    //      console.log(`${topic} Connect error,request push to memory buffer and wait for reconnect.`);
-    //
-    //      const topicMessage = [];
-    //      topicMessage.push({ topic, messages, attributes: 2 });
-    //      this.buffer.push(topicMessage);
-    //    } else {
-    //      console.log(data);
-    //    }
-    //  });
-    //} else {
-    //  const topicMessage = [];
-    //  topicMessage.push({ topic, messages, attributes: 2 });
-    //  this.buffer.push(topicMessage);
-    //  // attributes controls compression of the message set. It supports the following values:
-    //
-    //  // 0: No compression
-    //  // 1: Compress using GZip
-    //  // 2: Compress using snappy
-    //}
-    const topicMessage = [];
-    topicMessage.push({ topic, messages, attributes: 2 });
-    this.buffer.push(topicMessage);
+    if (this.producer.ready) {
+      this.producer.send([{ topic, messages, attributes: 2 }], (err, data) => {
+        if (err) {
+          console.log(`${topic} Connect error,request push to memory buffer and wait for reconnect.`);
+
+          const topicMessage = [];
+          topicMessage.push({ topic, messages, attributes: 2 });
+          this.buffer.push(topicMessage);
+        } else {
+          console.log(data);
+        }
+      });
+    } else {
+      const topicMessage = [];
+      topicMessage.push({ topic, messages, attributes: 2 });
+      this.buffer.push(topicMessage);
+      // attributes controls compression of the message set. It supports the following values:
+
+      // 0: No compression
+      // 1: Compress using GZip
+      // 2: Compress using snappy
+    }
   }
 
   kpub(class_name, function_name, arg) {

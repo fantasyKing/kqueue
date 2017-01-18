@@ -80,31 +80,30 @@ var KproducerLoad = function () {
   _createClass(KproducerLoad, [{
     key: 'send',
     value: function send(topic, messages) {
-      //if (this.producer.ready) {
-      //  this.producer.send([{ topic, messages, attributes: 2 }], (err, data) => {
-      //    if (err) {
-      //      console.log(`${topic} Connect error,request push to memory buffer and wait for reconnect.`);
-      //
-      //      const topicMessage = [];
-      //      topicMessage.push({ topic, messages, attributes: 2 });
-      //      this.buffer.push(topicMessage);
-      //    } else {
-      //      console.log(data);
-      //    }
-      //  });
-      //} else {
-      //  const topicMessage = [];
-      //  topicMessage.push({ topic, messages, attributes: 2 });
-      //  this.buffer.push(topicMessage);
-      //  // attributes controls compression of the message set. It supports the following values:
-      //
-      //  // 0: No compression
-      //  // 1: Compress using GZip
-      //  // 2: Compress using snappy
-      //}
-      var topicMessage = [];
-      topicMessage.push({ topic: topic, messages: messages, attributes: 2 });
-      this.buffer.push(topicMessage);
+      var _this2 = this;
+
+      if (this.producer.ready) {
+        this.producer.send([{ topic: topic, messages: messages, attributes: 2 }], function (err, data) {
+          if (err) {
+            console.log(topic + ' Connect error,request push to memory buffer and wait for reconnect.');
+
+            var topicMessage = [];
+            topicMessage.push({ topic: topic, messages: messages, attributes: 2 });
+            _this2.buffer.push(topicMessage);
+          } else {
+            console.log(data);
+          }
+        });
+      } else {
+        var topicMessage = [];
+        topicMessage.push({ topic: topic, messages: messages, attributes: 2 });
+        this.buffer.push(topicMessage);
+        // attributes controls compression of the message set. It supports the following values:
+
+        // 0: No compression
+        // 1: Compress using GZip
+        // 2: Compress using snappy
+      }
     }
   }, {
     key: 'kpub',
