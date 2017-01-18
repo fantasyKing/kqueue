@@ -66,7 +66,7 @@ class KproducerLoad {
     if (this.producer.ready) {
       this.producer.send([{ topic, messages, attributes: 2 }], (err, data) => {
         if (err) {
-          console.log(`${topic} Connect error,request push to memory buffer and wait for reconnect.`);
+          console.log(`topic:${topic} messages:${messages} Connect error,request push to memory buffer and wait for reconnect.`);
 
           const topicMessage = [];
           topicMessage.push({ topic, messages, attributes: 2 });
