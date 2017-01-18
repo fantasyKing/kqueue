@@ -85,7 +85,7 @@ var KproducerLoad = function () {
       if (this.producer.ready) {
         this.producer.send([{ topic: topic, messages: messages, attributes: 2 }], function (err, data) {
           if (err) {
-            console.log(topic + ' Connect error,request push to memory buffer and wait for reconnect.');
+            console.log('topic:' + topic + ' messages:' + messages + ' Connect error,request push to memory buffer and wait for reconnect.');
 
             var topicMessage = [];
             topicMessage.push({ topic: topic, messages: messages, attributes: 2 });
